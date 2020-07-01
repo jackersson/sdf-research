@@ -41,7 +41,7 @@ cd Pangolin
 
 mkdir build
 cd build
-cmake ..
+cmake .. -DBUILD_TOOLS=OFF -DBUILD_EXAMPLES=OFF
 make -j $(nproc)
 make install
 cd $ROOT/deep_sdf/third-party

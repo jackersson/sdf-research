@@ -19,6 +19,6 @@ find $IN_FOLDER -type f -name "*.obj" > $TEMP_FILE
 while read filepath; do
     filename=$(basename $filepath)
     filename="${filename%.*}"
-    ./$DEEP_SDF_BIN/PreprocessMesh -m $filepath -o "$OUT_FOLDER/$filename.npz" -t &
+    .$DEEP_SDF_BIN/PreprocessMesh -m $filepath -o "$OUT_FOLDER/$filename.npz" -t &
     [ $( jobs | wc -l ) -ge $( nproc ) ] && wait & echo "Done $filepath"
 done < $TEMP_FILE
