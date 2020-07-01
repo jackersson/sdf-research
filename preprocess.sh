@@ -12,8 +12,7 @@ fi
 OUT_FOLDER=$2
 if [ -z "$2" ]
   then
-    echo "Error: must specifiy out folder for (*.npz)"
-    exit -1
+    mkdir -p $OUT_FOLDER
 fi
 
 find $IN_FOLDER -type f -name "*.obj" > $TEMP_FILE
