@@ -50,6 +50,8 @@ DEEP_SDF_BIN=/deep_sdf/bin ./preprocess_mesh.sh /path/to/meshes /path/to/out
 
 - **TODO**: allow pass num_of_samples (now only 250 000, 500 000)
 
+![K3D Visualization](https://github.com/jackersson/sdf-research/blob/master/docs/images/k3d_demo.png)
+
 #### 3. Split to Train/Test
 - **TODO**: make a proper script
 ```
