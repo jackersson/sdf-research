@@ -12,10 +12,41 @@ import torch.utils.data
 # https://github.com/facebookresearch/DeepSDF/blob/master/deep_sdf/data.py
 
 
+def write_split_to_file(directory: str, items: list, class_name: str, is_train: bool = False):
+    filename_ = os.path.join(directory, f"{class_name}_{'train' if is_train else 'test'}.txt")
+    with open(filename_, 'w') as f:
+        for item in items:
+            f.write(item)
+            f.write("\n")
+    print(f"Successfully written to: {filename_}")
+
+
+def split_train_test(dataset: list, test_ratio: float = 0.25) -> typ.Tuple[list, list]:
+    """Create test/train split
+
+    Usage:
+        train_mesh, test_mesh = split_train_test(MESH_DIR)
+        write_split_to_file(DIR, train_mesh, CLASS_NAME, is_train=True)
+        write_split_to_file(DIR, test_mesh , CLASS_NAME, is_train=False)
+    """
+    n = len(dataset)
+    np.random.shuffle(dataset)
+    n_train = int(n * (1 - test_ratio))
+    return dataset[:n_train], dataset[n_train:]
+
+
 def list_files(folder: str, file_format: str = '.obj') -> typ.List[str]:
     pattern = '{0}/*{1}'.format(folder, file_format)
     filenames = glob.glob(pattern)
     return filenames
+
+
+def read_sdf_samples_into_ram(filename: str) -> typ.Tuple[torch.Tensor, torch.Tensor]:
+    npz = np.load(filename)
+    pos_tensor = torch.from_numpy(npz["pos"])
+    neg_tensor = torch.from_numpy(npz["neg"])
+
+    return [pos_tensor, neg_tensor]
 
 
 def remove_nans(tensor: torch.Tensor) -> torch.Tensor:
