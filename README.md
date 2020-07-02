@@ -101,6 +101,9 @@ def reconstruct(processed_mesh_filename: str, reconstructed_filename: str, model
 
     create_mesh(model, None, reconstructed_filename, max_batch=32**3)
 ```
+![100 epochs model](https://github.com/jackersson/sdf-research/blob/master/docs/images/few_first_iterations_model.png)
+
+![4000 epochs model](https://github.com/jackersson/sdf-research/blob/master/docs/images/4000_iterations_model.png)
 
 #### 7. Evaluation
 ##### 7.1 Sample visible mesh surface
