@@ -91,7 +91,16 @@ CONFIG = {
 
 
 #### 6. Reconstruct
+- **TODO**: to script
+```
+from deep_sdf.utils.mesh import create_mesh
 
+def reconstruct(processed_mesh_filename: str, reconstructed_filename: str, model: torch.nn.Module):
+    processed_mesh = np.load(processed_mesh_filename)
+    processed_mesh = np.vstack((processed_mesh['neg'], processed_mesh['pos']))
+
+    create_mesh(model, None, reconstructed_filename, max_batch=32**3)
+```
 
 #### 7. Evaluation
 ##### 7.1 Sample visible mesh surface
@@ -102,7 +111,21 @@ DEEP_SDF_BIN=/deep_sdf/bin ./sample_visible_mesh_surface.sh /path/to/meshes /pat
 - Outputs *.ply with point cloud near surface
 
 ##### 7.2 Calculate Chamfer Distance
+```
+import trimesh
+from deep_sdf.utils.metrics import compute_trimesh_chamfer
 
+def evaluate(mesh_gt_filename: str, mesh_pred_filename: str) -> float:
+    """
+    :param mesh_gt_filename: *.ply (Ground-truth mesh: SampleVisibleSurface)
+    :param mesh_pred_filename: *.ply (Predicted mesh: reconstruct)
+    """
+    mesh_gt = trimesh.load(mesh_gt_filename)
+    norm_params = np.load(mesh_gt_filename.replace(".ply", ".npz"))
+    mesh_pred = trimesh.load(filename_ + ".ply")
+
+    return compute_trimesh_chamfer(mesh_gt, mesh_pred, norm_params["offset"], norm_params["scale"])
+```
 
 
 ##### Visualization
