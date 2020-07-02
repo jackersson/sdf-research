@@ -9,6 +9,9 @@ def compute_trimesh_chamfer(gt_points: trimesh.points.PointCloud,
                             scale,
                             num_mesh_samples=30000):
     """
+    Initial implementation:
+    https://github.com/facebookresearch/DeepSDF/blob/master/deep_sdf/metrics/chamfer.py
+
     This function computes a symmetric chamfer distance, i.e. the sum of both chamfers.
 
     :param gt_points: of just poins, sampled from the surface (see

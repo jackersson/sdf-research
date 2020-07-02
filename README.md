@@ -13,6 +13,9 @@ pip install -U wheel pip setuptools
 
 pip install -r requirements.txt
 
+export GOOGLE_APPLICATION_CREDENTIALS=$PWD/credentials/gs_viewer.json
+dvc pull
+
 # Loads third-party repositories
 sudo apt install libeigen3-dev libgl1-mesa-dev libglew-dev
 ./build_deep_sdf.sh
@@ -89,6 +92,15 @@ CONFIG = {
 
 
 #### 7. Evaluation
+##### 7.1 Sample visible mesh surface
+```
+DEEP_SDF_BIN=/deep_sdf/bin ./sample_visible_mesh_surface.sh /path/to/meshes /path/to/out
+```
+- Outputs *.npz with normalization params ['offset', 'scale']
+- Outputs *.ply with point cloud near surface
+
+##### 7.2 Calculate Chamfer Distance
+
 
 
 ##### Visualization

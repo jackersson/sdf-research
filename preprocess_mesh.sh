@@ -1,5 +1,5 @@
-# Samles visible mesh surface from mesh with normalization parameters: scale, offset
-# DEEP_SDF_BIN=/deep_sdf/bin ./sample_visible_mesh_surface.sh /path/to/meshes /path/to/out
+# Generates N (250 000, 500 000) points [x, y, z] samples with sdfs (negative, positive, zero) from mesh
+# DEEP_SDF_BIN=/deep_sdf/bin ./preprocess_mesh.sh /path/to/meshes /path/to/out
 
 TEMP_FILE=all_files.txt
 
@@ -22,6 +22,6 @@ find $IN_FOLDER -type f -name "*.obj" > $TEMP_FILE
 while read filepath; do
     filename=$(basename $filepath)
     filename="${filename%.*}"
-    .$DEEP_SDF_BIN/SampleVisibleMeshSurface -m $filepath -o "$OUT_FOLDER/$filename.ply" -n "$OUT_FOLDER/$filename.npz" &
+    .$DEEP_SDF_BIN/PreprocessMesh -m $filepath -o "$OUT_FOLDER/$filename.npz" -t &
     [ $( jobs | wc -l ) -ge $( nproc ) ] && wait & echo "Done $filepath"
 done < $TEMP_FILE

@@ -1,0 +1,3 @@
+outs:
+- md5: c70e54ffc1a234f1694a62520347eb2c
+  path: model_circle_2d_final.pth

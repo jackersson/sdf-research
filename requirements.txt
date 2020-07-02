@@ -5,3 +5,5 @@ scikit-image
 pyrender
 trimesh
 plyfile
+k3d
+dvc[gs]
